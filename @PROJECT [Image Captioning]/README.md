@@ -11,7 +11,7 @@ One such example of how this architecture performs is pictured below:
 <!-- ![Center Image](images/image-description.PNG) -->
 
 <p align="center">
-  <img src="images/image-description.PNG">
+  <img src="https://github.com/vmelan/CVND-udacity/raw/master/P2_Image_Captioning/images/image-description.PNG">
 </p>
 
 ## Files
@@ -32,7 +32,7 @@ This might seem unrelated to judge the architecture to use in the encoder based 
 
 <!-- ![Encoder](images/encoder.png)-->
 <p align="center">
-  <img src="images/encoder.png">
+  <img src="https://github.com/vmelan/CVND-udacity/raw/master/P2_Image_Captioning/images/encoder.png">
 </p>
 
 ## RNN Decoder
@@ -42,7 +42,7 @@ The RNN-Decoder consists in a <ins>single LSTM layer</ins> followed by <ins>one 
 
 <!-- ![Decoder](images/decoder.png) -->
 <p align="center">
-  <img src="images/decoder.png">
+  <img src="https://github.com/vmelan/CVND-udacity/raw/master/P2_Image_Captioning/images/decoder.png">
 </p>
 
 ## CNN-RNN model 
@@ -52,5 +52,5 @@ our image captioning system !
 By merging the CNN encoder and the RNN decoder, we can get a model that can find patterns in images and then use that information to help generate a description of those images. The input image will be processed by a CNN and we will connect the output of the CNN to the input of the RNN which will allow us to generate descriptive text. 
 
 <p align="center">
-  <img src="images/encoder-decoder.png">
+  <img src="https://github.com/vmelan/CVND-udacity/raw/master/P2_Image_Captioning/images/encoder-decoder.png">
 </p>
