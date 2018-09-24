@@ -1,133 +1,81 @@
-# Landmark Detection & Robot Tracking (SLAM)
+# Project : Landmark Detection & Robot Tracking (SLAM)
 
-## Project Overview
+## Description
 
-In this project, you'll implement SLAM (Simultaneous Localization and Mapping) for a 2 dimensional world! You’ll combine what you know about robot sensor measurements and movement to create a map of an environment from only sensor and motion data gathered by a robot, over time. SLAM gives you a way to track the location of a robot in the world in real-time and identify the locations of landmarks such as buildings, trees, rocks, and other world features. This is an active area of research in the fields of robotics and autonomous systems. 
+In this project, we implement SLAM (Simultaneous Localization and Mapping for a 2 dimensional world.
+We combine robot sensor measurements and movement to create a map of an environment from only sensor and motion
+data gathered by a robot, over time. 
 
-*Below is an example of a 2D robot world with landmarks (purple x's) and the robot (a red 'o') located and found using *only* sensor and motion data collected by that robot. This is just one example for a 50x50 grid world; in your work you will likely generate a variety of these maps.*
+SLAM gives us a way to track the location of a robot in the world in real-time and identify the locations of landmarks such as buildings, trees, rocks, and other world features.
+
+This is an active area of research in the field of robotics and autonomous systems.
+
+Below is an example of a 2D robot world with landmarks (purple x's) and the robot (a red 'o') located and found using only sensor and motion data collected by that robot.
 
 <p align="center">
-  <img src="./images/robot_world.png" width=50% height=50% />
+  <img src="images/description.PNG">
 </p>
 
-The project will be broken up into three Python notebooks; the first two are for exploration of provided code, and a review of SLAM architectures, **only Notebook 3 and the `robot_class.py` file will be graded**:
+## Files
 
-__Notebook 1__ : Robot Moving and Sensing
+- `Notebook 1` : Robot moving and sensing
+- `Notebook 2` : Omega and Xi, Constraints
+- `Notebook 3` : Landmark detection and tracking
+- `robot_class.py` : Robot object with its world
+- `helpers.py` : helper functions
 
-__Notebook 2__ : Omega and Xi, Constraints 
+## Graph SLAM
 
-__Notebook 3__ : Landmark Detection and Tracking 
+To implement Graph SLAM, a matrix and a vector (omega and xi, respectively) are introduced. 
+The matrix is square and labelled with all the robot poses (xi) and all the landmarks (Li).
 
+Every time we make an observation, for example as we move between two poses by some distance
+`dx` and can relate those two positions, you can represent this as a numerical relationship in these
+matrices.
 
-## Project Instructions
+We are referring to robot poses as Px, Py and landmark positions as Lx, Ly, and one way to approach this challenge is to add both x and y locations in the constraint matrices.
 
-All of the starting code and resources you'll need to compete this project are in this Github repository. Before you can get started coding, you'll have to make sure that you have all the libraries and dependencies required to support this project. If you have already created a `cv-nd` environment for [exercise code](https://github.com/udacity/CVND_Exercises), then you can use that environment! If not, instructions for creation and activation are below.
+<p align="center">
+  <img src="images/constraints2D.png" width=50% height=50%>
+</p>
 
-### Local Environment Instructions
+### Implementation
 
-1. Clone the repository, and navigate to the downloaded folder.
-```
-git clone https://github.com/udacity/P3_Implement_SLAM.git
-cd P3_Implement_SLAM
-```
+After correctly implementing SLAM, we can visualize 
 
-2. Create (and activate) a new environment, named `cv-nd` with Python 3.6. If prompted to proceed with the install `(Proceed [y]/n)` type y.
+- Omega : 
+<p align="center">
+  <img src="images/implement_omega.PNG">
+</p>
 
-	- __Linux__ or __Mac__: 
-	```
-	conda create -n cv-nd python=3.6
-	source activate cv-nd
-	```
-	- __Windows__: 
-	```
-	conda create --name cv-nd python=3.6
-	activate cv-nd
-	```
-	
-	At this point your command line should look something like: `(cv-nd) <User>:P3_Implement_SLAM <user>$`. The `(cv-nd)` indicates that your environment has been activated, and you can proceed with further package installations.
+- Xi : 
 
-6. Install a few required pip packages, which are specified in the requirements text file (including OpenCV).
-```
-pip install -r requirements.txt
-```
+<p align="center">
+  <img src="images/implement_xi.PNG">
+</p>
 
+## Solution 
+To "solve" for all these x values, we can use linear algebra; all the values of x are in the vector `mu` which can be calculated as a product of the inverse of omega times `xi`.
 
-## Notebooks
+<p align="center">
+  <img src="images/solution_clean.PNG">
+</p>
 
-1. Navigate back to the repo. (Also, your source environment should still be activated at this point.)
-```shell
-cd
-cd P3_Implement_SLAM
-```
+The result can be displayed as well : 
 
-2. Open the directory of notebooks, using the below command. You'll see all of the project files appear in your local environment; open the first notebook and follow the instructions.
-```shell
-jupyter notebook
-```
+<p align="center">
+  <img src="images/implement_mu.PNG">
+</p>
 
-3. Once you open any of the project notebooks, make sure you are in the correct `cv-nd` environment by clicking `Kernel > Change Kernel > cv-nd`.
+Notice that our initial position is `[x = world_size / 2, y = world_size / 2]` since we assume
+with absolute confidence that our robot starts out in the middle of the defined world.
 
-__NOTE:__ While some code has already been implemented to get you started, you will need to implement additional functionality and answer all of the questions included in the notebook. __Unless requested, it's suggested that you do not modify code that has already been included.__
+## Visualization of the constructed world
 
+Finally, we can visualize the code implemented : the final position of the robot
+and the position of landmarks, created from only motion and measurement data ! 
 
-## Evaluation
+<p align="center">
+  <img src="images/constructed_world.PNG">
+</p>
 
-Your project will be reviewed against the project [rubric](#rubric).  Review this rubric thoroughly, and self-evaluate your project before submission.  All criteria found in the rubric must meet specifications for you to pass.
-
-
-## Project Submission
-
-When you are ready to submit your project, collect all of your project files -- all executed notebooks, and python files -- and compress them into a single zip archive for upload.
-
-Alternatively, your submission could consist of only the **GitHub link** to your repository with all of the completed files.
-
-<a id='rubric'></a>
-## Project Rubric
-
-### `robot_class.py`: Implementation of `sense`
-
-#### Implement the `sense` function
-| Criteria       		|     Meets Specifications	        			            | 
-|:---------------------:|:---------------------------------------------------------:| 
-|  Implement the `sense` function for the robot class. |  Implement the `sense` function to complete the robot class found in the `robot_class.py` file. This implementation should account for a given amount of `measurement_noise` and the `measurement_range` of the robot. This function should return a list of values that reflect the measured distance (dx, dy) between the robot's position and any landmarks it sees. One item in the list has the format: `[landmark_index, dx, dy]`. |
-
-
-### Notebook 3: Implementation of `initialize_constraints`
-
-#### Initialize omega and xi matrices 
-| Criteria       		|     Meets Specifications	        			            | 
-|:---------------------:|:---------------------------------------------------------:| 
-|  Initialize constraint matrices. |  Initialize the array `omega` and vector `xi` such that any unknown values are `0` the size of these should vary with the given `world_size`, `num_landmarks`, and time step, `N`, parameters. |
-
-
-### Notebook 3: Implementation of `slam`
-
-#### Update the constraint matrices as you read sensor measurements 
-| Criteria       		|     Meets Specifications	        			            | 
-|:---------------------:|:---------------------------------------------------------:| 
-|  Iterate through the generated `data` and update the constraints. |  The values in the constraint matrices should be affected by sensor measurements *and* these updates should account for uncertainty in sensing. |
-
-#### Update the constraint matrices as you read robot motion data 
-| Criteria       		|     Meets Specifications	        			            | 
-|:---------------------:|:---------------------------------------------------------:| 
-|  Iterate through the generated `data` and update the constraints. |  The values in the constraint matrices should be affected by motion `(dx, dy)` *and* these updates should account for uncertainty in motion. |
-
-#### `slam` returns a list of robot and landmark positions, `mu`
-| Criteria       		|     Meets Specifications	        			            | 
-|:---------------------:|:---------------------------------------------------------:| 
-|  The result of slam should be a list of robot and landmark positions, `mu`. |  The values in `mu` will be the x, y positions of the robot over time and the estimated locations of landmarks in the world. `mu` is calculated with the constraint matrices `omega^(-1)*xi`. |
-
-
-#### Answer question about final pose
-| Criteria       		|     Meets Specifications	        			            | 
-|:---------------------:|:---------------------------------------------------------:| 
-|  Answer question about the final robot pose. |  Compare the `slam`-estimated and *true* final pose of the robot; answer why these values might be different. |
-
-#### `slam` passes all tests
-
-| Criteria       		|     Meets Specifications	        			            | 
-|:---------------------:|:---------------------------------------------------------:| 
-| Test your implementation of `slam`.  |  There are two provided test_data cases, test your implementation of slam on them and see if the result matches.|
-
-
-LICENSE: This project is licensed under the terms of the MIT license.
