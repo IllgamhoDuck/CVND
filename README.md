@@ -5,7 +5,7 @@ This repository contains code exercises and materials for Udacity's [Computer Vi
 ## Projects
 
 ### Facial Keypoint Detection
->[P1_Facial_Keypoints](https://github.com/vmelan/CVND-udacity/tree/master/P1_Facial_Keypoints)
+>[P1_Facial_Keypoints](https://github.com/IllgamhoDuck/CVND/tree/master/%40PROJECT%20%5BFacial%20Keypoint%20Detection%5D)
 
 Use image processing techniques and deep learning techniques to detect faces in an image and find facial keypoints, such as the position of the eyes, nose, and mouth on a face.
 
