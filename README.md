@@ -11,12 +11,12 @@ Use image processing techniques and deep learning techniques to detect faces in 
 
 
 ### Automatic Image Captioning
->[P2_Image_captioning](https://github.com/vmelan/CVND-udacity/tree/master/P2_Image_Captioning)
+>[P2_Image_captioning](https://github.com/IllgamhoDuck/CVND/tree/master/%40PROJECT%20%5BImage%20Captioning%5D)
 
 Combine CNN and RNN knowledge to build a deep learning model that produces captions given an imput image.
 
 ### Landmark Detection & Tracking (SLAM)
->[P3_SLAM](https://github.com/vmelan/CVND-udacity/tree/master/P3_SLAM)
+>[P3_SLAM](https://github.com/IllgamhoDuck/CVND/tree/master/%40PROJECT%20%5BLandmark%20Detection%20and%20Tracking%20(SLAM)%5D)
 
 Implement Graph SLAM (Simultaneous Localization and Mapping) for a 2 dimensional world
 # Configure and Manage Your Environment with Anaconda
